@@ -67,7 +67,24 @@ word_perm = function(n, k) {
     s[i, ] <- sample(0:1, k, replace = TRUE)
   }
   
-  perm = RandQuickSort(s)
+  sorted_s = RandQuickSort(s)
+  
+  perm = 1:n
+  taken = c()
+  
+  for (i in 1:n)
+    taken = append(taken, FALSE)
+  
+  for (i in 1:n) {
+    for (j in 1:n) {
+      if (all(sorted_s[i, ] == s[j, ]) && !taken[j]) {
+        perm [i] = j
+        taken[j] = TRUE
+        break
+      }
+    }
+  }
+  
   return(perm)
 }
 
